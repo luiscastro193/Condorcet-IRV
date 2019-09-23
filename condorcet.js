@@ -71,6 +71,6 @@ let ballots = `
 	3 1 2
 `;
 
-ballots = ballots.trim().split('\n').map(ballot => ballot.split(' ').map(rank => parseInt(rank)));
+ballots = ballots.trim().split('\n').map(ballot => ballot.trim().split(' ').map(rank => parseInt(rank)));
 
 console.log(condorcetIrvWinner(condorcetMatrix(ballots), ballots));
