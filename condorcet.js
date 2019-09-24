@@ -71,12 +71,3 @@ function stringToBallots(input) {
 		ballot.trim().split(/[^0-9]+/).map(rank => parseInt(rank))
 	);
 }
-
-let ballots = `
-	1 2 3
-	2 3 1
-	3 1 2
-`;
-
-ballots = stringToBallots(ballots);
-console.log(condorcetIrvWinner(condorcetMatrix(ballots), ballots));
