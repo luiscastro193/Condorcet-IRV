@@ -28,3 +28,6 @@ function resetWinner() {
 	winnerElement.textContent = '';
 	button.disabled = false;
 }
+
+for (let textarea of document.querySelectorAll('textarea'))
+	textarea.placeholder = textarea.placeholder.replace(/\\n/g, '\n');
