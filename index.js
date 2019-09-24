@@ -1,4 +1,7 @@
 "use strict";
+let winnerElement = document.querySelector('#winner');
+let button = document.querySelector('button');
+
 function fixSize(textarea) {
 	while (textarea.offsetHeight <= textarea.scrollHeight)
 		textarea.rows += 4;
@@ -8,9 +11,7 @@ function fixSize(textarea) {
 
 function submitForm(event) {
 	event.preventDefault();
-	event.target.querySelector('button').disabled = true;
-	
-	let winnerElement = document.querySelector('#winner');
+	button.disabled = true;
 	winnerElement.textContent = "Calculating...";
 	
 	try {
@@ -21,4 +22,9 @@ function submitForm(event) {
 	catch(e) {
 		winnerElement.textContent = "Error";
 	}
+}
+
+function resetWinner() {
+	winnerElement.textContent = '';
+	button.disabled = false;
 }
