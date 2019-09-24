@@ -29,4 +29,4 @@ function resetWinner() {
 	button.disabled = false;
 }
 
-button.disabled = false; 
+button.disabled = false;
