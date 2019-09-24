@@ -28,3 +28,5 @@ function resetWinner() {
 	winnerElement.textContent = '';
 	button.disabled = false;
 }
+
+button.disabled = false;
