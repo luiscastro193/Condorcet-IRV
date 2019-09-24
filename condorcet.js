@@ -66,14 +66,18 @@ function condorcetIrvWinner(matrix, ballots) {
 	return winner;
 }
 
+function stringToBallots(input) {
+	return input.trim().split(/[\n\r]+/).map(ballot => 
+		ballot.trim().split(/[^0-9]+/).map(rank => parseInt(rank))
+	);
+}
+
 let ballots = `
 	1 2 3
 	2 3 1
 	3 1 2
 `;
 
-ballots = ballots.trim().split(/[\n\r]+/).map(ballot => 
-	ballot.trim().split(/[^0-9]+/).map(rank => parseInt(rank))
-);
+ballots = stringToBallots(ballots);
 
 console.log(condorcetIrvWinner(condorcetMatrix(ballots), ballots));
