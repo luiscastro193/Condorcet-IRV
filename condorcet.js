@@ -79,5 +79,4 @@ let ballots = `
 `;
 
 ballots = stringToBallots(ballots);
-
 console.log(condorcetIrvWinner(condorcetMatrix(ballots), ballots));
