@@ -4,6 +4,7 @@
 
 textarea {
 	white-space: pre;
+	resize: none;
 }
 
 label {
