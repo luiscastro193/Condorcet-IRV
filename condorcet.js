@@ -72,6 +72,26 @@ function stringToBallots(input) {
 	);
 }
 
+function notationToBallots(input) {
+	return input.trim().split(/[\n\r]+/).map(ballot => {
+		let sequence = ballot.trim().split(/[^0-9ge]+/);
+		let ranks = Array(Math.ceil(sequence.length / 2)).fill(NaN);
+		let nextRank = 1;
+		let candidate;
+		
+		for (let item of sequence) {
+			if (item == 'g')
+				nextRank++;
+			else if (/^[0-9]+$/.test(item))
+				ranks[parseInt(item) - 1] = nextRank;
+			else if (item != 'e')
+				throw "Invalid format";
+		}
+		
+		return ranks;
+	});
+}
+
 function areValid(ballots) {
 	const nCandidates = ballots[0].length;
 	

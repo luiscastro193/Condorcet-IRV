@@ -2,6 +2,12 @@
 	font-family: 'Lexend Deca', sans-serif;
 }
 
+ol, ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-position: inside;
+}
+
 textarea {
 	white-space: pre;
 	resize: none;
