@@ -14,7 +14,7 @@
 	<h3>Condorcet-IRV</h3>
 	<form onsubmit="submitForm(event)" oninput="resetWinner(); updateBallotList()">
 		<label for="candidates">Candidates</label>
-		<section class="fields">
+		<section>
 			<article class="fieldset">
 				<textarea name="candidates" rows=6 cols=25 oninput="fixSize(this); updateCandidateList()" placeholder="First option (one per line)" required></textarea>
 			</article>
