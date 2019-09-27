@@ -73,7 +73,7 @@ function stringToBallots(input) {
 }
 
 function areValid(ballots) {
-	let nCandidates = ballots[0].length;
+	const nCandidates = ballots[0].length;
 	
 	return ballots.every(ballot =>
 		ballot.length == nCandidates && ballot.every(rank => Number.isInteger(rank))
