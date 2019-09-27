@@ -77,7 +77,6 @@ function notationToBallots(input) {
 		let sequence = ballot.trim().split(/[^0-9ge]+/);
 		let ranks = Array(Math.ceil(sequence.length / 2)).fill(NaN);
 		let nextRank = 1;
-		let candidate;
 		
 		for (let item of sequence) {
 			if (item == 'g')
