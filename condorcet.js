@@ -71,3 +71,11 @@ function stringToBallots(input) {
 		ballot.trim().split(/[^0-9]+/).map(rank => parseInt(rank))
 	);
 }
+
+function areValid(ballots) {
+	let nCandidates = ballots[0].length;
+	
+	return ballots.every(ballot =>
+		ballot.length == nCandidates && ballot.every(rank => Number.isInteger(rank))
+	);
+}

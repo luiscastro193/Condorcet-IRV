@@ -17,7 +17,11 @@ function submitForm(event) {
 	try {
 		let candidates = event.target.candidates.value.split(/[\n\r]+/);
 		let ballots = stringToBallots(event.target.ballots.value);
-		winnerElement.textContent = candidates[condorcetIrvWinner(condorcetMatrix(ballots), ballots)];
+		
+		if (areValid(ballots))
+			winnerElement.textContent = candidates[condorcetIrvWinner(condorcetMatrix(ballots), ballots)];
+		else
+			winnerElement.textContent = "Error, invalid ballots format";
 	}
 	catch(e) {
 		winnerElement.textContent = "Error";
