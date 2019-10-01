@@ -19,11 +19,17 @@ label {
 	text-decoration: underline;
 }
 
-.fieldset {
+.fieldset:not(:empty), textarea.fieldset {
 	margin-bottom: 10px;
 	margin-right: 10px;
 }
 
-.fields {
-	display: flex;
+.float {
+	float: left;
+}
+
+.fields::after {
+	content: "";
+	clear: both;
+	display: table;
 }
