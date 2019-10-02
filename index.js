@@ -45,17 +45,20 @@ function toItem(string) {
 
 function updateCandidateList() {
 	candidateList.innerHTML = '';
-	candidates = candidatesInput.value.split(/[\n\r]+/);
-	candidateList.append(...candidates.map(toItem));
+	candidates = candidatesInput.value && candidatesInput.value.split(/[\n\r]+/) || [];
+	if (candidates.length)
+		candidateList.append(...candidates.map(toItem));
 }
 
 function updateBallotList() {
 	ballotList.innerHTML = '';
-	ballotList.append(
-		...ballotsInput.value.trim().replace(/g/g, '>').replace(/e/g, '=')
-		.replace(/[0-9]+/g, candidate => candidates[parseInt(candidate) - 1])
-		.split(/[\n\r]+/).map(toItem)
-	);
+	if (ballotsInput.value) {
+		ballotList.append(
+			...ballotsInput.value.trim().replace(/g/g, '>').replace(/e/g, '=')
+			.replace(/[0-9]+/g, candidate => candidates[parseInt(candidate) - 1])
+			.split(/[\n\r]+/).map(toItem)
+		);
+	}
 }
 
 button.disabled = false;
