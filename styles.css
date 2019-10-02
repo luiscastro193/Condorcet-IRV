@@ -8,6 +8,10 @@ ol, ul {
 	list-style-position: inside;
 }
 
+ol:empty, ul:empty {
+	display: none;
+}
+
 textarea {
 	white-space: pre;
 	resize: none;
@@ -19,7 +23,7 @@ label {
 	text-decoration: underline;
 }
 
-.fieldset:not(:empty), textarea.fieldset {
+.fieldset {
 	margin-bottom: 10px;
 	margin-right: 10px;
 }
