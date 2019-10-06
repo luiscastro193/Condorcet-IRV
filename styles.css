@@ -35,5 +35,5 @@ label {
 .fields::after {
 	content: "";
 	clear: both;
-	display: table;
+	display: block;
 }
