@@ -13,6 +13,7 @@ ol:empty, ul:empty {
 }
 
 textarea {
+	white-space: pre;
 	resize: none;
 }
 
