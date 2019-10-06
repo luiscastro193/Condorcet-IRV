@@ -37,3 +37,7 @@ label {
 	clear: both;
 	display: block;
 }
+
+.fields {
+	display: flow-root;
+}
