@@ -61,4 +61,6 @@ function updateBallotList() {
 	}
 }
 
+updateCandidateList();
+updateBallotList();
 button.disabled = false;
