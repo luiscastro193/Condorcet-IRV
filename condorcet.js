@@ -1,7 +1,7 @@
 "use strict";
 function condorcetMatrix(ballots) {
 	let n_candidates = ballots[0].length;
-	let matrix = Array.from(Array(n_candidates), () => Array(n_candidates).fill(0));
+	let matrix = Array.from({length: n_candidates}, () => Array(n_candidates).fill(0));
 	
 	for (let ballot of ballots) {
 		for (let [candidate, rank] of ballot.entries()) {
