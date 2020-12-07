@@ -7,6 +7,8 @@ let candidateList = document.querySelector('#candidateList');
 let candidates = [];
 let ballotsInput = document.querySelector('[name=ballots]');
 let ballotList = document.querySelector('#ballotList');
+let selector = document.querySelector('.preference-selector');
+let options = selector.querySelectorAll('.preferences > span');
 
 function fixSize(textarea) {
 	while (textarea.offsetHeight <= textarea.scrollHeight)
@@ -68,14 +70,11 @@ button.disabled = false;
 
 function askPreference(i1, i2) {
 	return new Promise(resolve => {
-		let selector = document.querySelector('.preference-selector');
-		
 		function answer(myAnswer) {
 			selector.classList.remove('enabled');
 			resolve(myAnswer);
 		}
 		
-		let options = selector.querySelectorAll('.preferences > span');
 		options[0].textContent = candidates[i1-1];
 		options[2].textContent = candidates[i2-1];
 		options[0].onclick = () => answer(-1);
