@@ -41,3 +41,33 @@ label {
 .fields {
 	display: flow-root;
 }
+
+.preference-selector {
+	display: none;
+	position: fixed;
+	top: 0; right: 0; bottom: 0; left: 0;
+	background-color: white;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.preference-selector.enabled {
+	display: flex;
+}
+
+.preferences {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: start;
+	grid-gap: 15px;
+	margin: 0 15px;
+}
+
+.preferences > span {
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+}
