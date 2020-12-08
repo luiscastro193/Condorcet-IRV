@@ -38,19 +38,15 @@ async function mergeSort(values, compare) {
 	while (indexes[0] < ordered[0].length && indexes[1] < ordered[1].length) {
 		let order = await compare(ordered[0][indexes[0]], ordered[1][indexes[1]]);
 		
-		if (order != 0) {
-			if (result.length)
+		if (result.length)
 				result.push('g');
-			
+		
+		if (order != 0)
 			pushWithEquals(order < 0 ? 0 : 1);
-		}
 		else {
-			for (let i of [0, 1]) {
-				if (result.length)
-					result.push(i == 0 ? 'g' : 'e');
-				
-				pushWithEquals(i);
-			}
+			pushWithEquals(0);
+			result.push('e');
+			pushWithEquals(1);
 		}
 	}
 	
