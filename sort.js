@@ -8,17 +8,13 @@ async function mergeSort(values, compare) {
 		
 		values[1] = order != 0 ? 'g' : 'e';
 		
-		if (order > 0) {
-			let temp = values[0];
-			values[0] = values[2];
-			values[2] = temp;
-		}
+		if (order > 0)
+			[values[0], values[2]] = [values[2], values[0]]
 		
 		return values;
 	}
 	
-	let splitIndex = Math.floor(Math.ceil(values.length / 2) / 2);
-	splitIndex += splitIndex - 1;
+	let splitIndex = Math.floor(Math.ceil(values.length / 2) / 2) * 2 - 1;
 	let ordered = [await mergeSort(values.slice(0, splitIndex), compare), await mergeSort(values.slice(splitIndex + 1), compare)];
 	let indexes = [0, 0];
 	let result = [];
