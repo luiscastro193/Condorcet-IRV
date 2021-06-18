@@ -101,7 +101,12 @@ ballotButton.onclick = function() {
 		return alert("Add more candidates");
 	
 	sort(shuffle(Array.from({length: candidates.length}, (x, i) => i + 1)), askPreference).then(result => {
-		ballotsInput.value += result.join(' ') + '\n';
+		let lastChar = ballotsInput.value.slice(-1);
+		
+		if (lastChar && lastChar != '\n')
+			ballotsInput.value += '\n';
+		
+		ballotsInput.value += result.join(' ');
 		resetWinner();
 		updateBallotList();
 	});
