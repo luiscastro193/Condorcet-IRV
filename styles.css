@@ -71,3 +71,7 @@ label {
 	border-radius: 10px;
 	cursor: pointer;
 }
+
+.preference-selector > p {
+	margin-top: 0;
+}
