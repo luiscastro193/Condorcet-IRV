@@ -35,7 +35,7 @@ async function mergeSort(values, compare) {
 		let order = await compare(ordered[0][indexes[0]], ordered[1][indexes[1]]);
 		
 		if (result.length)
-				result.push('g');
+			result.push('g');
 		
 		if (order != 0)
 			pushWithEquals(order < 0 ? 0 : 1);
