@@ -16,7 +16,7 @@
 	<form onsubmit="submitForm(event)" oninput="resetWinner(); updateBallotList()">
 		<label for="candidates">Candidates</label>
 		<textarea class="fieldset" name="candidates" rows=6 cols=25 oninput="fixSize(this); updateCandidateList()"
-			placeholder="First option (one per line)" required></textarea>
+			placeholder="First option (one per line)" required autofocus></textarea>
 		<ol id="candidateList" class="fieldset"></ol>
 		<label for="ballots">Ballots</label>
 		<section class="fields">
