@@ -68,13 +68,13 @@ function condorcetIrvWinner(matrix, ballots) {
 
 function stringToBallots(input) {
 	return input.trim().split(/\s+^\s*/m).map(ballot => 
-		ballot.trim().split(/[^0-9]+/).map(rank => parseInt(rank))
+		ballot.split(/[^0-9]+/).map(rank => parseInt(rank))
 	);
 }
 
 function notationToBallots(input) {
 	return input.trim().split(/\s+^\s*/m).map(ballot => {
-		let sequence = ballot.trim().split(/[^0-9ge]+/);
+		let sequence = ballot.split(/[^0-9ge]+/);
 		let ranks = Array(Math.ceil(sequence.length / 2)).fill(NaN);
 		let nextRank = 1;
 		
