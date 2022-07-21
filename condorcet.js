@@ -52,7 +52,7 @@ function irvLoser(ballots) {
 	}
 	
 	let bottomCandidates = minIndexes(topCount);
-	return bottomCandidates[Math.floor(Math.random() * bottomCandidates.length)];
+	return bottomCandidates[Math.trunc(Math.random() * bottomCandidates.length)];
 }
 
 function condorcetIrvWinner(matrix, ballots) {
