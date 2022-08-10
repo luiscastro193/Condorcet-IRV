@@ -59,7 +59,7 @@ function updateBallotList() {
 		ballotList.append(
 			...ballotsInput.value.trim().replace(/g/g, '>').replace(/e/g, '=')
 			.replace(/[0-9]+/g, candidate => candidates[parseInt(candidate) - 1])
-			.split(/[\n\r]+/).map(toItem)
+			.split(/\s+^\s*/m).map(toItem)
 		);
 	}
 }
