@@ -48,7 +48,7 @@ function toItem(string) {
 
 function updateCandidateList() {
 	candidateList.innerHTML = '';
-	candidates = candidatesInput.value && candidatesInput.value.split(/[\n\r]+/) || [];
+	candidates = candidatesInput.value && candidatesInput.value.split(/\s+^\s*/m) || [];
 	if (candidates.length)
 		candidateList.append(...candidates.map(toItem));
 }
