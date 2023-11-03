@@ -54,7 +54,11 @@ async function irvLoser(ballots, generator) {
 	}
 	
 	let bottomCandidates = minIndexes(topCount);
-	return bottomCandidates[Math.trunc(await generator.random() * bottomCandidates.length)];
+	
+	if (bottomCandidates.length > 1)
+		return bottomCandidates[Math.trunc(await generator.random() * bottomCandidates.length)];
+	else
+		return bottomCandidates[0];
 }
 
 export async function condorcetIrvWinner(matrix, ballots, seed) {
