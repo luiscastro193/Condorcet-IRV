@@ -54,7 +54,7 @@ async function mergeSort(values, compare) {
 	return result;
 }
 
-async function sort(values, compare) {
+export default async function sort(values, compare) {
 	values = [].concat(...values.map(item => [item, 'u']));
 	values.pop();
 	return mergeSort(values, compare);

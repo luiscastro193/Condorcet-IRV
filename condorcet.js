@@ -1,5 +1,7 @@
 "use strict";
-function condorcetMatrix(ballots) {
+import PRNG from 'https://luiscastro193.github.io/PRNG/PRNG.js';
+
+export function condorcetMatrix(ballots) {
 	let n_candidates = ballots[0].length;
 	let matrix = Array.from({length: n_candidates}, () => Array(n_candidates).fill(0));
 	
@@ -38,7 +40,7 @@ function minIndexes(array) {
 	return [...array.keys()].filter(i => array[i] == arrayMin);
 }
 
-function irvLoser(ballots) {
+async function irvLoser(ballots, generator) {
 	let topCount = Array(ballots[0].length).fill(0);
 	
 	for (let ballot of ballots) {
@@ -52,27 +54,28 @@ function irvLoser(ballots) {
 	}
 	
 	let bottomCandidates = minIndexes(topCount);
-	return bottomCandidates[Math.trunc(Math.random() * bottomCandidates.length)];
+	return bottomCandidates[Math.trunc(await generator.random() * bottomCandidates.length)];
 }
 
-function condorcetIrvWinner(matrix, ballots) {
+export async function condorcetIrvWinner(matrix, ballots, seed) {
+	let generator = new PRNG(seed);
 	let winner = condorcetWinner(matrix);
 	
 	while (winner == null) {
-		removeCandidate(irvLoser(ballots), ballots, matrix);
+		removeCandidate(await irvLoser(ballots, generator), ballots, matrix);
 		winner = condorcetWinner(matrix);
 	}
 	
 	return winner;
 }
 
-function stringToBallots(input) {
+export function stringToBallots(input) {
 	return input.trim().split(/\s+^\s*/m).map(ballot => 
 		ballot.split(/[^0-9]+/).map(rank => parseInt(rank))
 	);
 }
 
-function notationToBallots(input) {
+export function notationToBallots(input) {
 	return input.trim().split(/\s+^\s*/m).map(ballot => {
 		let sequence = ballot.split(/[^0-9ge]+/);
 		let ranks = Array(Math.ceil(sequence.length / 2)).fill(NaN);
@@ -91,7 +94,7 @@ function notationToBallots(input) {
 	});
 }
 
-function areValid(ballots) {
+export function areValid(ballots) {
 	const nCandidates = ballots[0].length;
 	
 	return ballots.every(ballot =>

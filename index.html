@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -7,21 +8,17 @@
 	<link rel="icon" href="https://luiscastro193.github.io/favicon.svg" type="image/svg+xml">
 	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css">
-	<script defer src="condorcet.js"></script>
-	<script defer src="sort.js"></script>
-	<script defer src="index.js"></script>
+	<script type="module" src="index.js"></script>
 </head>
 <body>
 	<h3>Condorcet-IRV</h3>
-	<form onsubmit="submitForm(event)" oninput="resetWinner(); updateBallotList()">
+	<form>
 		<label for="candidates">Candidates</label>
-		<textarea class="fieldset" name="candidates" rows=6 cols=25 oninput="fixSize(this); updateCandidateList()"
-			placeholder="First option (one per line)" required autofocus></textarea>
+		<textarea class="fieldset" name="candidates" rows=6 cols=25 placeholder="First option (one per line)" required autofocus></textarea>
 		<ol id="candidateList" class="fieldset"></ol>
 		<label for="ballots">Ballots</label>
 		<section class="fields">
-			<textarea class="fieldset" name="ballots" rows=6 cols=25 oninput="fixSize(this)"
-				placeholder="Click on &quot;Generate ballot&quot;" required></textarea>
+			<textarea class="fieldset" name="ballots" rows=6 cols=25 placeholder="Click on &quot;Generate ballot&quot;" required></textarea>
 			<ul id="ballotList" class="fieldset"></ul>
 		</section>
 		<button id="ballotButton" type="button" disabled>Generate ballot</button>

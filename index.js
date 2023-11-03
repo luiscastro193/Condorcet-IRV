@@ -1,7 +1,10 @@
 "use strict";
+const sortPromise = import('./sort.js').then(module => module.default);
+const condorcetPromise = import('./condorcet.js');
 let winnerElement = document.querySelector('#winner');
 let button = document.querySelector('#winnerButton');
 let ballotButton = document.querySelector('#ballotButton');
+let form = document.querySelector('form');
 let candidatesInput = document.querySelector('[name=candidates]');
 let candidateList = document.querySelector('#candidateList');
 let candidates = [];
@@ -17,16 +20,21 @@ function fixSize(textarea) {
 		textarea.cols += 10;
 }
 
-function submitForm(event) {
+for (let textarea of document.querySelectorAll('textarea'))
+	textarea.addEventListener('input', () => fixSize(textarea));
+
+form.onsubmit = async function(event) {
 	event.preventDefault();
 	button.disabled = true;
 	winnerElement.textContent = "Calculating...";
+	
+	const {notationToBallots, areValid, condorcetIrvWinner, condorcetMatrix} = await condorcetPromise;
 	
 	try {
 		let ballots = notationToBallots(ballotsInput.value);
 		
 		if (areValid(ballots))
-			winnerElement.textContent = candidates[condorcetIrvWinner(condorcetMatrix(ballots), ballots)];
+			winnerElement.textContent = candidates[await condorcetIrvWinner(condorcetMatrix(ballots), ballots, candidatesInput.value.trim())];
 		else
 			winnerElement.textContent = "Error, invalid ballots format";
 	}
@@ -64,6 +72,10 @@ function updateBallotList() {
 	}
 }
 
+form.addEventListener('input', resetWinner);
+form.addEventListener('input', updateBallotList);
+candidatesInput.addEventListener('input', updateCandidateList);
+
 updateCandidateList();
 updateBallotList();
 button.disabled = false;
@@ -93,12 +105,14 @@ function shuffle(array) {
 	return array;
 }
 
-ballotButton.onclick = function() {
+ballotButton.onclick = async function() {
 	if (!candidatesInput.reportValidity())
 		return false;
 	
 	if (candidates.length < 2)
 		return alert("Add more candidates");
+	
+	const sort = await sortPromise;
 	
 	sort(shuffle(Array.from({length: candidates.length}, (x, i) => i + 1)), askPreference).then(result => {
 		let lastChar = ballotsInput.value.slice(-1);
