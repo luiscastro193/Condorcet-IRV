@@ -34,7 +34,7 @@ form.onsubmit = async function(event) {
 		let ballots = notationToBallots(ballotsInput.value);
 		
 		if (areValid(ballots))
-			winnerElement.textContent = candidates[await condorcetIrvWinner(condorcetMatrix(ballots), ballots, candidatesInput.value.trim())];
+			winnerElement.textContent = candidates[await condorcetIrvWinner(condorcetMatrix(ballots), ballots, candidates.join())];
 		else
 			winnerElement.textContent = "Error, invalid ballots format";
 	}
@@ -56,13 +56,15 @@ function toItem(string) {
 
 function updateCandidateList() {
 	candidateList.innerHTML = '';
-	candidates = candidatesInput.value && candidatesInput.value.split(/\s+^\s*/m) || [];
+	candidates = candidatesInput.value.trim();
+	candidates = candidates && candidates.split(/\s+^\s*/m) || [];
 	if (candidates.length)
 		candidateList.append(...candidates.map(toItem));
 }
 
 function updateBallotList() {
 	ballotList.innerHTML = '';
+	
 	if (ballotsInput.value) {
 		ballotList.append(
 			...ballotsInput.value.trim().replace(/g/g, '>').replace(/e/g, '=')
