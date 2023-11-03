@@ -114,8 +114,10 @@ ballotButton.onclick = async function() {
 	if (candidates.length < 2)
 		return alert("Add more candidates");
 	
+	ballotButton.disabled = true;
 	const sort = await sortPromise;
 	let result = await sort(shuffle(Array.from({length: candidates.length}, (x, i) => i + 1)), askPreference);
+	ballotButton.disabled = false;
 	let lastChar = ballotsInput.value.slice(-1);
 	
 	if (lastChar && lastChar != '\n')
