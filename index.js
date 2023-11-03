@@ -113,17 +113,15 @@ ballotButton.onclick = async function() {
 		return alert("Add more candidates");
 	
 	const sort = await sortPromise;
+	let result = await sort(shuffle(Array.from({length: candidates.length}, (x, i) => i + 1)), askPreference);
+	let lastChar = ballotsInput.value.slice(-1);
 	
-	sort(shuffle(Array.from({length: candidates.length}, (x, i) => i + 1)), askPreference).then(result => {
-		let lastChar = ballotsInput.value.slice(-1);
-		
-		if (lastChar && lastChar != '\n')
-			ballotsInput.value += '\n';
-		
-		ballotsInput.value += result.join(' ');
-		resetWinner();
-		updateBallotList();
-	});
+	if (lastChar && lastChar != '\n')
+		ballotsInput.value += '\n';
+	
+	ballotsInput.value += result.join(' ');
+	resetWinner();
+	updateBallotList();
 }
 
 ballotButton.disabled = false;
