@@ -28,20 +28,6 @@ label {
 	margin-right: 10px;
 }
 
-.float {
-	float: left;
-}
-
-.fields::after {
-	content: "";
-	clear: both;
-	display: block;
-}
-
-.fields {
-	display: flow-root;
-}
-
 .preference-selector {
 	display: none;
 	position: fixed;
