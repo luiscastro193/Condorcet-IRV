@@ -75,7 +75,7 @@ export async function condorcetIrvWinner(matrix, ballots, seed) {
 
 export function stringToBallots(input) {
 	return input.trim().split(/\s+^\s*/m).map(ballot => 
-		ballot.split(/[^0-9]+/).map(rank => parseInt(rank))
+		ballot.split(/[^0-9]+/).map(rank => Number(rank))
 	);
 }
 
@@ -89,7 +89,7 @@ export function notationToBallots(input) {
 			if (item == 'g')
 				nextRank++;
 			else if (/^[0-9]+$/.test(item))
-				ranks[parseInt(item) - 1] = nextRank;
+				ranks[Number(item) - 1] = nextRank;
 			else if (item != 'e')
 				throw "Invalid format";
 		}

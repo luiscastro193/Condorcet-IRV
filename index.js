@@ -68,7 +68,7 @@ function updateBallotList() {
 	if (ballotsInput.value) {
 		ballotList.append(
 			...ballotsInput.value.trim().replace(/g/g, '>').replace(/e/g, '=')
-			.replace(/[0-9]+/g, candidate => candidates[parseInt(candidate) - 1])
+			.replace(/[0-9]+/g, candidate => candidates[Number(candidate) - 1])
 			.split(/\s+^\s*/m).map(toItem)
 		);
 	}
