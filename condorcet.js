@@ -2,14 +2,14 @@
 import PRNG from 'https://luiscastro193.github.io/PRNG/PRNG.js';
 
 export function condorcetMatrix(ballots) {
-	let n_candidates = ballots[0].length;
-	let matrix = Array.from({length: n_candidates}, () => Array(n_candidates).fill(0));
+	const nCandidates = ballots[0].length;
+	let matrix = Array.from({length: nCandidates}, () => Array(nCandidates).fill(0));
 	
 	for (let ballot of ballots) {
 		for (let [candidate, rank] of ballot.entries()) {
-			for (let [other_candidate, other_rank] of ballot.entries()) {
-				if (rank < other_rank)
-					matrix[candidate][other_candidate]++;
+			for (let [otherCandidate, otherRank] of ballot.entries()) {
+				if (rank < otherRank)
+					matrix[candidate][otherCandidate]++;
 			}
 		}
 	}
@@ -18,12 +18,12 @@ export function condorcetMatrix(ballots) {
 }
 
 function condorcetWinner(matrix) {
-	function beats(candidate, other_candidate) {
-		return matrix[candidate][other_candidate] > matrix[other_candidate][candidate] || candidate == other_candidate;
+	function beats(candidate, otherCandidate) {
+		return matrix[candidate][otherCandidate] > matrix[otherCandidate][candidate] || candidate == otherCandidate;
 	}
 	
 	for (let candidate of matrix.keys()) {
-		if ([...matrix.keys()].every(other_candidate => beats(candidate, other_candidate)))
+		if ([...matrix.keys()].every(otherCandidate => beats(candidate, otherCandidate)))
 			return candidate;
 	}
 }
