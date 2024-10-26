@@ -40,7 +40,7 @@ function minIndexes(array) {
 	return [...array.keys()].filter(i => array[i] == arrayMin);
 }
 
-async function irvLoser(ballots, generator) {
+async function irvLoser(ballots, random) {
 	let topCount = Array(ballots[0].length).fill(0);
 	
 	for (let ballot of ballots) {
@@ -56,17 +56,17 @@ async function irvLoser(ballots, generator) {
 	let bottomCandidates = minIndexes(topCount);
 	
 	if (bottomCandidates.length > 1)
-		return bottomCandidates[Math.trunc(await generator.random() * bottomCandidates.length)];
+		return bottomCandidates[Math.trunc((await random)() * bottomCandidates.length)];
 	else
 		return bottomCandidates[0];
 }
 
 export async function condorcetIrvWinner(matrix, ballots, seed) {
-	let generator = new PRNG(seed);
+	let random = PRNG(seed);
 	let winner = condorcetWinner(matrix);
 	
 	while (winner == null) {
-		removeCandidate(await irvLoser(ballots, generator), ballots, matrix);
+		removeCandidate(await irvLoser(ballots, random), ballots, matrix);
 		winner = condorcetWinner(matrix);
 	}
 	
