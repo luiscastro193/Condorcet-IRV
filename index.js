@@ -1,9 +1,12 @@
 "use strict";
+const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
 const sortPromise = import('./sort.js').then(module => module.default);
 const condorcetPromise = import('./condorcet.js');
 let winnerElement = document.querySelector('#winner');
 let button = document.querySelector('#winnerButton');
 let ballotButton = document.querySelector('#ballotButton');
+let shareButton = document.querySelector('#shareButton');
+let qrButton = document.querySelector('#qrButton');
 let form = document.querySelector('form');
 let candidatesInput = document.querySelector('#candidates');
 let candidateList = document.querySelector('#candidateList');
@@ -12,6 +15,7 @@ let ballotsInput = document.querySelector('#ballots');
 let ballotList = document.querySelector('#ballotList');
 let selector = document.querySelector('.preference-selector');
 let options = selector.querySelectorAll('.preferences > span');
+let url = location.href;
 
 function fixSize(textarea) {
 	while (textarea.offsetHeight <= textarea.scrollHeight)
@@ -54,11 +58,20 @@ function toItem(string) {
 	return li;
 }
 
+let lastUpdate = 0;
+
+async function updateURL() {
+	const updateId = lastUpdate = (lastUpdate + 1) % Number.MAX_SAFE_INTEGER;
+	let uri = candidates.length ? '#' + await (await zipPromise).zip(candidates.join('\n')) : ' ';
+	if (updateId == lastUpdate) url = new URL(uri, location.href);
+}
+
 function updateCandidateList() {
 	candidateList.innerHTML = '';
 	candidates = candidatesInput.value.trim();
 	candidates = candidates && candidates.split(/\s+^\s*/m) || [];
 	candidateList.append(...candidates.map(toItem));
+	updateURL();
 }
 
 function updateBallotList() {
@@ -79,7 +92,6 @@ candidatesInput.addEventListener('input', updateCandidateList);
 
 updateCandidateList();
 updateBallotList();
-button.disabled = false;
 
 function askPreference(i1, i2) {
 	return new Promise(resolve => {
@@ -127,4 +139,27 @@ ballotButton.onclick = async function() {
 	updateBallotList();
 }
 
+shareButton.onclick = () => {
+	if (navigator.share)
+		navigator.share({url});
+	else
+		navigator.clipboard.writeText(url).then(() => alert("Link copied to clipboard"));
+}
+
+qrButton.onclick = () => {
+	window.open("https://luiscastro193.github.io/qr-generator/#" + encodeURIComponent(url));
+}
+
+window.onhashchange = () => location.reload();
+
 ballotButton.disabled = false;
+button.disabled = false;
+shareButton.disabled = false;
+qrButton.disabled = false;
+
+if (location.hash) {
+	candidatesInput.value = await (await zipPromise).unzip(location.hash.slice(1));
+	updateCandidateList();
+	ballotButton.click();
+	history.pushState(null, '', ' ');
+}

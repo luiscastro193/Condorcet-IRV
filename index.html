@@ -9,6 +9,7 @@
 	<link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 	<link rel="stylesheet" href="styles.css">
 	<script type="module" src="index.js"></script>
+	<link rel="modulepreload" href="https://luiscastro193.github.io/zip-string/zip-string.js">
 	<script type="module" async src="https://luiscastro193.github.io/stats.js"></script>
 </head>
 <body>
@@ -22,8 +23,12 @@
 			<textarea class="fieldset" id="ballots" rows=6 cols=25 placeholder="Click on &quot;Generate ballot&quot;" required></textarea>
 			<ul id="ballotList" class="fieldset"></ul>
 		</section>
-		<button id="ballotButton" type="button" disabled>Generate ballot</button>
-		<button id="winnerButton" disabled>Calculate winner</button>
+		<section class="buttons">
+			<button id="ballotButton" type="button" disabled>Generate ballot</button>
+			<button id="winnerButton" disabled>Calculate winner</button>
+			<button id="shareButton" type="button" disabled>Share</button>
+			<button id="qrButton" type="button" disabled>Generate QR</button>
+		</section>
 	</form>
 	<p><u>Winner</u>: <span id="winner"></span></p>
 	<section class="preference-selector">

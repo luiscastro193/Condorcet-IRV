@@ -61,3 +61,9 @@ label {
 .preference-selector > p {
 	margin-top: 0;
 }
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+}
