@@ -3,10 +3,7 @@ const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string
 const sortPromise = import('./sort.js').then(module => module.default);
 const condorcetPromise = import('./condorcet.js');
 let winnerElement = document.querySelector('#winner');
-let button = document.querySelector('#winnerButton');
-let ballotButton = document.querySelector('#ballotButton');
-let shareButton = document.querySelector('#shareButton');
-let qrButton = document.querySelector('#qrButton');
+let [ballotButton, button, shareButton, qrButton] = document.querySelectorAll('button');
 let form = document.querySelector('form');
 let candidatesInput = document.querySelector('#candidates');
 let candidateList = document.querySelector('#candidateList');
@@ -16,6 +13,8 @@ let ballotList = document.querySelector('#ballotList');
 let selector = document.querySelector('.preference-selector');
 let options = selector.querySelectorAll('.preferences > span');
 let url = location.href;
+
+const shareTexts = ["Share", "Share candidates"];
 
 function fixSize(textarea) {
 	while (textarea.offsetHeight <= textarea.scrollHeight)
@@ -62,7 +61,7 @@ let lastUpdate = 0;
 
 async function updateURL() {
 	const updateId = lastUpdate = (lastUpdate + 1) % Number.MAX_SAFE_INTEGER;
-	let uri = candidates.length ? '#' + await (await zipPromise).zip(candidates.join('\n')) : ' ';
+	let uri = candidates.length >= 2 ? '#' + await (await zipPromise).zip(candidates.join('\n')) : ' ';
 	if (updateId == lastUpdate) url = new URL(uri, location.href);
 }
 
@@ -72,6 +71,7 @@ function updateCandidateList() {
 	candidates = candidates && candidates.split(/\s+^\s*/m) || [];
 	candidateList.append(...candidates.map(toItem));
 	updateURL();
+	shareButton.textContent = shareTexts[candidates.length >= 2 ? 1 : 0];
 }
 
 function updateBallotList() {
