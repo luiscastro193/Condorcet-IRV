@@ -72,6 +72,7 @@ function updateCandidateList() {
 	candidateList.append(...candidates.map(toItem));
 	updateURL();
 	shareButton.textContent = shareTexts[candidates.length >= 2 ? 1 : 0];
+	localStorage.candidates = candidatesInput.value;
 }
 
 function updateBallotList() {
@@ -84,14 +85,13 @@ function updateBallotList() {
 			.split(/\s+^\s*/m).map(toItem)
 		);
 	}
+	
+	localStorage.ballots = ballotsInput.value;
 }
 
 form.addEventListener('input', resetWinner);
 form.addEventListener('input', updateBallotList);
 candidatesInput.addEventListener('input', updateCandidateList);
-
-updateCandidateList();
-updateBallotList();
 
 function askPreference(i1, i2) {
 	return new Promise(resolve => {
@@ -163,3 +163,10 @@ if (location.hash) {
 	ballotButton.click();
 	history.pushState(null, '', ' ');
 }
+else {
+	if (localStorage.candidates) candidatesInput.value = localStorage.candidates;
+	if (localStorage.ballots) ballotsInput.value = localStorage.ballots;
+}
+
+updateCandidateList();
+updateBallotList();
