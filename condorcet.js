@@ -18,14 +18,19 @@ export function condorcetMatrix(ballots) {
 }
 
 function condorcetWinner(matrix) {
-	function beats(candidate, otherCandidate) {
-		return matrix[candidate][otherCandidate] > matrix[otherCandidate][candidate] || candidate == otherCandidate;
+	let candidate = 0;
+	
+	for (let i = 1; i < matrix.length; i++) {
+		if (matrix[i][candidate] >= matrix[candidate][i])
+			candidate = i;
 	}
 	
-	for (let candidate of matrix.keys()) {
-		if ([...matrix.keys()].every(otherCandidate => beats(candidate, otherCandidate)))
-			return candidate;
+	for (let i = 0; i < candidate; i++) {
+		if (matrix[i][candidate] >= matrix[candidate][i])
+			return null;
 	}
+	
+	return candidate;
 }
 
 function removeCandidate(candidate, ballots, matrix) {
