@@ -41,8 +41,22 @@ function removeCandidate(candidate, ballots, matrix) {
 }
 
 function minIndexes(array) {
-	let arrayMin = Math.min(...array);
-	return [...array.keys()].filter(i => array[i] == arrayMin);
+	const indexes = [];
+	let minValue = Infinity;
+	
+	for (let index = 0; index < array.length; index++) {
+		const value = array[index];
+		
+		if (value < minValue) {
+			minValue = value;
+			indexes.length = 0;
+			indexes.push(index);
+		}
+		else if (value == minValue)
+			indexes.push(index);
+	}
+	
+	return indexes;
 }
 
 async function irvLoser(ballots, random) {
