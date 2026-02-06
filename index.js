@@ -60,7 +60,7 @@ function toItem(string) {
 let lastUpdate = 0;
 
 async function updateURL() {
-	const updateId = lastUpdate = (lastUpdate + 1) % Number.MAX_SAFE_INTEGER;
+	const updateId = ++lastUpdate;
 	let uri = candidates.length >= 2 ? '#' + await (await zipPromise).zip(candidates.join('\n')) : ' ';
 	if (updateId == lastUpdate) url = new URL(uri, location.href);
 }
